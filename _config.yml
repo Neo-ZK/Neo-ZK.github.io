@@ -2,7 +2,6 @@
 #   Main Configs   #
 # ---------------- #
 baseurl:
-url: https://william-zk.org
 date_format: "ordinal"
 title: william.zk的Blog
 timezone: Asia/Shanghai
