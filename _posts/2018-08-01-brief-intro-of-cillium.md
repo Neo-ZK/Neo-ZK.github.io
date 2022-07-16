@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 初探cilium---容器网络的福音
-categories: Blog
+categories: Network
 keywords: cilium, Network
 ---
 
