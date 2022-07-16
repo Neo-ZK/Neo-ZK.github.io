@@ -11,7 +11,7 @@ Clilium不是一个独立的项目，要说cilium就不得不提到k8s，k8s是�
 - 2.需要通信的两个container不同pod内，pod位于同一个node下：这种情况也不复杂，这属于典型的docker内通信，一般采用docker的虚拟网桥模式。
 - 3.需要通信的两个container不同pod内，但pod位于不同node下：这就要麻烦很多了，现在用的比较多的解决方案就是coreOS开发的flannel,flannel在网络层实现了一个简单的overlay网络来保证容器间的通信，其大致通信流程如下：
 
-![flannel架构图.jpg|center|400x120](/images/self-drawn/flannel.png)
+![flannel架构图.jpg](/images/self-drawn/flannel.png)
 
 ## 思考问题
 - 1.假如我们现在k8s集群中有两个服务service1和service2，我们要求service1只负责接收service2的数据包，我们如何实现这个功能呢
