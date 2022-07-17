@@ -59,8 +59,8 @@ ECC-SM2在流程上几乎等同于RSA的密钥交换流程，更准确的说法�
 
 标准文档的流程图中并没有对于关键的密钥导出步骤进行说明，这里补充一下，大家关注下用户A的第七步和用户B的第六步，实际的计算流程如下(由于文档的限制，带有上标'-'的x1和x2就以x1和x2替代了，这个替换不会影响理解):
 
-- 用户A：计算U = [h * t<sub>A</sub>](P<sub>B</sub> + x<sub>2</sub> * R<sub>B</sub>) = (x<sub>U</sub>,y<sub>U</sub>)，其中t<sub>A</sub> = (d<sub>A</sub> + x<sub>1</sub> * r<sub>A</sub>)，d<sub>A</sub>为A的私钥，P<sub>B</sub>为B的公钥
-- 用户B：计算V = [h * t<sub>B</sub>](P<sub>A</sub> + x<sub>1</sub> * R<sub>A</sub>) = (x<sub>V</sub>,y<sub>V</sub>)，其中t<sub>B</sub> = (d<sub>B</sub> + x<sub>2</sub> * r<sub>B</sub>)，d<sub>B</sub>为B的私钥，P<sub>A</sub>为A的公钥
+- 用户A：计算U = \[h * t<sub>A</sub>\](P<sub>B</sub> + x<sub>2</sub> * R<sub>B</sub>) = (x<sub>U</sub>,y<sub>U</sub>)，其中t<sub>A</sub> = (d<sub>A</sub> + x<sub>1</sub> * r<sub>A</sub>)，d<sub>A</sub>为A的私钥，P<sub>B</sub>为B的公钥
+- 用户B：计算V = \[h * t<sub>B</sub>\[(P<sub>A</sub> + x<sub>1</sub> * R<sub>A</sub>) = (x<sub>V</sub>,y<sub>V</sub>)，其中t<sub>B</sub> = (d<sub>B</sub> + x<sub>2</sub> * r<sub>B</sub>)，d<sub>B</sub>为B的私钥，P<sub>A</sub>为A的公钥
 
 这里的"[]"还是表示椭圆曲线乘法，而x1和x2都是带有上标'-'的。
 
