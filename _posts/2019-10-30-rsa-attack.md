@@ -13,7 +13,7 @@ RSA算法是互联网安全中非常具有代表性的算法之一，然而近�
 要较为深入的了解这一种攻击模式需要两方面的背景知识，一是RSA算法的基本原理，二是RSA的PKCS#1 v1.5填充模式，下面对这两方面的知识做一个详细的阐述
 
 ### RSA算法的基本原理
-这两篇文章对于RSA算法的数学原理讲的非常清晰和透彻：[RSA的数学背景知识](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html?spm=ata.21736010.0.0.6ff25c18D2agzb)，[RSA的原理](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html?spm=ata.21736010.0.0.6ff25c18D2agzb)，如果对于过多的数学推导不太感冒，那也可以直接看我下面的说明，我们尽可能的省略掉相关的数学公式。
+这两篇文章对于RSA算法的数学原理讲的非常清晰和透彻：[RSA的数学背景知识](http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html)，[RSA的原理](http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html)，如果对于过多的数学推导不太感冒，那也可以直接看我下面的说明，我们尽可能的省略掉相关的数学公式。
 
 首先我们需要明确的是RSA的功能：生成一对公私钥，用公钥加密的东西可以用私钥解密(对应握手过程)，私钥加密的东西也可以用公钥解密(对应签名过程)，而实际上公私钥只是一个很大的数字而已。整个加解密的流程可以用如下流程表示：
 
@@ -37,4 +37,4 @@ RSA的安全性建立在：当p,q为大质数时，计算n很容易，但中间�
 - server拿到c'然后开始解密：m' = (c')<sup>d</sup> % n = (c * (s<sup>e</sup>))d % n = [(c<sup>d</sup> % n) * (s<sup>ed</sup> % n)] % n
 - 由上文我们提到的rsa解密过程我们知道c<sup>d</sup> % n = m，s<sup>ed</sup> % n = s，于是式子可以写作：m' = (m * s )% n
 
-在实际的tls协议中，当解出的消息m'的格式不符合PKCS标准，即前两个字节不为0x00,0x02时，会返回一个不符合PKCS#1标准的错误，也就是说，中间人如果不断尝试s，如果没有收到这个错误，那么就可以得到m*s的前两个字节为0x00,0x02。中间人持续不断的尝试s的值，最终是有可能将消息m试出来的，关于Bleichenbacher攻击可行性的数学分析可以看[这篇论文](https://archiv.infsec.ethz.ch/education/fs08/secsem/Bleichenbacher98.pdf?spm=ata.21736010.0.0.6ff25c18D2agzb&file=Bleichenbacher98.pdf)，至此，这种攻击模式的分析就全部结束了。当然，应对攻击的方式也很简单，server不再针对不符合PKCS#1 v1.5的标准单独返回一个错误，而是统一返回握手失败的错误。(由于rsa算法本身的安全性，中间人是无法通过篡改的消息c'完成完整的tls握手的，server拿不到正确的消息m，无法生成对应的对称密钥，最终导致握手失败)
+在实际的tls协议中，当解出的消息m'的格式不符合PKCS标准，即前两个字节不为0x00,0x02时，会返回一个不符合PKCS#1标准的错误，也就是说，中间人如果不断尝试s，如果没有收到这个错误，那么就可以得到m*s的前两个字节为0x00,0x02。中间人持续不断的尝试s的值，最终是有可能将消息m试出来的，关于Bleichenbacher攻击可行性的数学分析可以看[这篇论文](https://archiv.infsec.ethz.ch/education/fs08/secsem/Bleichenbacher98.pdf)，至此，这种攻击模式的分析就全部结束了。当然，应对攻击的方式也很简单，server不再针对不符合PKCS#1 v1.5的标准单独返回一个错误，而是统一返回握手失败的错误。(由于rsa算法本身的安全性，中间人是无法通过篡改的消息c'完成完整的tls握手的，server拿不到正确的消息m，无法生成对应的对称密钥，最终导致握手失败)
