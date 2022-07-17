@@ -48,15 +48,11 @@ PKI体系是目前身份认证方法中最安全的体系之一，但这套体�
 ## Delegated Credentials的细节分析
 这一节我们来详细分析一下Delegated Credentials的相关技术，为表述方便，后文用DC来表示Delegated Credentials，通过前面的分析，我们了解到DC是一个类似证书私钥对的东西，不太严谨的说，我们甚至可以简单的把DC理解成企业证书的下一级证书，我们先来看使用DC进行握手的流程，首先明确一下，DC在第二版draft及以后就仅支持tls1.3了，所以我们以tls1.3会话过程为例来进行说明，如下图：
 
-
-[](/images/self-drawn/intro-of-delegated-credential/tls13.png)
-
+[](/images/self-drawn/intro-of-delegated-credential/tls13.jpg)
 
 从流程上我们可以看到，DC同证书承载的功能是一样的，因此，对于其签名及验签功能而言，其结构中仅需要具备公私钥对以及相应的算法说明即可，而对于其身份验证的流程而言，由于每次会话中DC与server证书链是强绑定的，因此无需任何颁发者字段说明。由此，DC相比与x509，仅需要简短的结构体就能实现其功能，一个DC的结构体如下：
 
-
-[](/images/self-drawn/intro-of-delegated-credential/dc.png)
-
+[](/images/self-drawn/intro-of-delegated-credential/dc.jpg)
 
 需要注意的是，DC不仅要求tls会话支持相应的扩展，同时也要求x509证书也支持相应的扩展，DC相应的draft要求x509格式证书必须在其extension字段中定义新的DelegationUsage字段，用于说明是否支持DC，同时，RFC中也定义了很多细节上的要求，比如在tls会话中，每个DC相关的扩展应该在哪些扩展之后发送，以及DC对应的签名算法的相关要求，DC对应的签名算法虽然可以和证书对应的签名算法不一致，但必须属于tls会话中握手算法扩展中定义的算法之一。
 
