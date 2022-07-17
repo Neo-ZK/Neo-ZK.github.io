@@ -1,6 +1,6 @@
 ---
 layout: post
-title: cgo的弊病
+title: 同为tls，quic-tls和标准tls到底有什么区别？
 categories: Language
 keywords: go, cgo
 ---
