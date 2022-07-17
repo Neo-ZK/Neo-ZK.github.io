@@ -41,7 +41,7 @@ PKI体系是目前身份认证方法中最安全的体系之一，但这套体�
 
 再来对比下目前典型对私钥安全性的方案，如cloudflare提出的keyless协议，keyless协议也不是一个十分复杂的东西，其本质思路在于将server的私钥集中部署到更安全的keycenter集群，而前端负责ssl卸载的设备收到https请求后，将需要签名的数据基于keyless协议打包，转发到keycenter集群进行签名操作。这样就保证了私钥尽可能少的对外暴露，增加安全性，整个流程如下:
 
-![](/images/self-drawn/intro-of-delegated-credential/keyserver.png)
+![](/images/self-drawn/intro-of-delegated-credential/keyserver.jpg)
 
 可以看到在keyless架构下，网络链路会多一跳，这不仅是多的性能损耗，新增系统同样也会增加稳定性的风险。
 
