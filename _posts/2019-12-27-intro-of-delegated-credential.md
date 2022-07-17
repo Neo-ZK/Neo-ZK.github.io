@@ -49,7 +49,7 @@ PKI体系是目前身份认证方法中最安全的体系之一，但这套体�
 这一节我们来详细分析一下Delegated Credentials的相关技术，为表述方便，后文用DC来表示Delegated Credentials，通过前面的分析，我们了解到DC是一个类似证书私钥对的东西，不太严谨的说，我们甚至可以简单的把DC理解成企业证书的下一级证书，我们先来看使用DC进行握手的流程，首先明确一下，DC在第二版draft及以后就仅支持tls1.3了，所以我们以tls1.3会话过程为例来进行说明，如下图：
 
 
-[](/images/self-drawn/intro-of-delegated-credential/key-exchange.png)
+[](/images/self-drawn/intro-of-delegated-credential/tls13.png)
 
 
 从流程上我们可以看到，DC同证书承载的功能是一样的，因此，对于其签名及验签功能而言，其结构中仅需要具备公私钥对以及相应的算法说明即可，而对于其身份验证的流程而言，由于每次会话中DC与server证书链是强绑定的，因此无需任何颁发者字段说明。由此，DC相比与x509，仅需要简短的结构体就能实现其功能，一个DC的结构体如下：
