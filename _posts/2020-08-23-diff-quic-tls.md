@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 同为tls，quic-tls和标准tls到底有什么区别？
-categories: Language
-keywords: go, cgo
+categories: Network
+keywords: quic, tls
 ---
 
 ## 背景       
